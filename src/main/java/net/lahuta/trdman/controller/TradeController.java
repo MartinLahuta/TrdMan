@@ -31,7 +31,7 @@ public class TradeController {
 
     // http://localhost:8080/trade/1
     @GetMapping("/{id}")
-    public Optional<TradeDto> trade(@PathVariable int id) {
+    public Optional<TradeDto> trade(@PathVariable long id) {
         return tradeService.findById(id);
     }
     

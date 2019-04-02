@@ -18,7 +18,7 @@ public class AmqpController {
     @JmsListener(destination = "broadcast.CCP.RAPPIDDCASH_Trade")
     public void receivedTrade(byte[] data) {
         String message = new String(data, UTF_8);
-        log.info("Received message:\n" + message);
+        log.info("Received message: len={}B", data.length);
         amqpService.receiveMessage(message);
     }
 

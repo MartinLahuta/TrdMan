@@ -34,9 +34,8 @@ public class TradeService {
     
     // Hibernate
     @Transactional(readOnly = true)
-    public Optional<TradeDto> findById(int id) {
+    public Optional<TradeDto> findById(long id) {
         Optional<Trade> trd = tradeRepository.findById(id);
-        System.out.println("findById: id=" + id + " found=" + trd.isPresent());
         return tradeRepository.findById(id)
                 .map(tradeMapper::tradeToTradeDto);
     //    return tradeRepository.findById(id); - hibernate bez dto

@@ -4,8 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.math.BigInteger;
-import java.sql.Date;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -15,20 +15,25 @@ public class Trade {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(name = "trade_id")
+    private long tradeId;
 
-    private String ISIN;
+    @Column(name = "trd_no")
+    private String trdNo;
+    private String isin;
 
-    @Column(name = "membid")
-    private String membId;
+    @Column(name = "member_id")
+    private String memberId;
 
-    private BigInteger Qty;
-    private BigInteger Amnt;
-    private BigInteger Prc;
+    private BigDecimal quantity;
+    private BigDecimal amount;
+    private BigDecimal price;
 
-    private String curr;
+    @Column(name = "buy_sell_typ")
+    private String buySellTyp;
+    private String currency;
 
-    @Column(name = "stldate")
-    private Date stlDate;
+    @Column(name = "stl_date")
+    private LocalDate stlDate;
 
 }

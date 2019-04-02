@@ -1,4 +1,4 @@
-package net.lahuta.trdman.amqp;
+package net.lahuta.trdman.config;
 
 import org.apache.qpid.jms.JmsConnectionFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,11 +11,11 @@ import org.springframework.context.annotation.Configuration;
 @AutoConfigureBefore(JmsAutoConfiguration.class)
 public class JmsConfig {
 
-    @Value("${spring.qpidjms.uri}")
+    @Value("${trdman.qpidjms.uri}")
     private String uri;
-    @Value("${spring.qpidjms.username}")
+    @Value("${trdman.qpidjms.username}")
     private String username;
-    @Value("${spring.qpidjms.password}")
+    @Value("${trdman.qpidjms.password}")
     private String password;
 
     @Bean

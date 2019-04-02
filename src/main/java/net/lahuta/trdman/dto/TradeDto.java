@@ -2,8 +2,9 @@ package net.lahuta.trdman.dto;
 
 // nazvy fieldu musi byt stejne jako v Trade.java
 
-import java.math.BigInteger;
-import java.sql.Date;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,13 +19,15 @@ import lombok.Setter;
 @AllArgsConstructor
 public class TradeDto {
 
-    private int id;
-    private String ISIN;
-    private String membId;
-    private BigInteger Qty;
-    private BigInteger Amnt;
-    private BigInteger Prc;
-    private String curr;
-    private Date stlDate;
+    private long trade_id;
+    private String trdNo;
+    private String isin;
+    private String memberId;
+    private BigDecimal quantity;
+    private BigDecimal amount;
+    private BigDecimal price;
+    private String buySellTyp;
+    private String currency;
+    private LocalDate stlDate;
     
 }
