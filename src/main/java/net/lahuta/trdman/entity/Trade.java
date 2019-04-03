@@ -36,4 +36,9 @@ public class Trade {
     @Column(name = "stl_date")
     private LocalDate stlDate;
 
+    @Override
+    public String toString() {
+        return "TRD: id="+tradeId+" member="+memberId+" "+buySellTyp+": qty="+quantity+" amnt="+amount;
+    }
+
 }
