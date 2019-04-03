@@ -67,15 +67,9 @@ public class TradeParser extends DefaultHandler {
             throw new TradeParseException(e.getMessage());
         }
 
-
-        if (!TradeEnum.containsAll(this.tradeValues)) {
-            log.info("Missing values:");
-            for(TradeEnum value : TradeEnum.values()) {
-                if (!this.tradeValues.contains(value)) {
-                    log.info("Missing value: {}", value.getValueName());
-                }
-            }
-            throw new TradeParseException("missing values");
+        if (!this.tradeValues.containsAll(TradeEnum.ALL_VALUES)) {
+            log.info("Missing values: {}", TradeEnum.ALL_VALUES.complementOf(this.tradeValues));
+            throw new TradeParseException("Missing value(s)");
         }
 
         return trade;

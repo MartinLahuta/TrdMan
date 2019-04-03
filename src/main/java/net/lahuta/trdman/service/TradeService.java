@@ -41,4 +41,9 @@ public class TradeService {
     //    return tradeRepository.findById(id); - hibernate bez dto
     }
 
+    @Transactional(readOnly = false)
+    public void deleteById(long id) {
+        tradeRepository.deleteById(id);
+    }
+
 }

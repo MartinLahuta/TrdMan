@@ -22,7 +22,7 @@ public class AmqpService {
     public void receiveMessage(String xml) {
         try {
             Trade trade = tradeParser.parseXMLTrade(xml);
-//            tradeRepository.save(trade);
+            tradeRepository.save(trade);
         } catch(TradeParseException e) {
             log.info("Invalid trade:\n{}", xml);
         }

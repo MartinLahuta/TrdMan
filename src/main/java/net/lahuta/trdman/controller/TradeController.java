@@ -5,10 +5,7 @@ import java.util.Optional;
 import net.lahuta.trdman.dto.TradeDto;
 import net.lahuta.trdman.service.TradeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/trade")
@@ -33,6 +30,11 @@ public class TradeController {
     @GetMapping("/{id}")
     public Optional<TradeDto> trade(@PathVariable long id) {
         return tradeService.findById(id);
+    }
+
+    @PostMapping("/{id}")
+    public void deleteTrade(@PathVariable long id) {
+        tradeService.deleteById(id);
     }
     
 }

@@ -9,8 +9,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 @RepositoryRestResource(exported = false)
 public interface TradeRepository extends JpaRepository<Trade, Long> {
 
-    @Query("select i from Trade i where i.id = ?1")
-    Optional<Trade> findById(long id);
+//    @Query("select t from Trade t WHERE t.id = ?1")
+//    Optional<Trade> findById(long id);
 
     @Query(nativeQuery = true, value = "select count(*) from trdbook")
     long countItems();

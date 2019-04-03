@@ -21,14 +21,6 @@ public enum TradeEnum {
         this.valueName = valueName;
     }
 
-    public static boolean containsAll(EnumSet<TradeEnum> tradeValues) {
-        return ALL_VALUES.containsAll(tradeValues);
-    }
-
-    public String getValueName() {
-        return this.valueName;
-    }
-
     @Override
     public String toString() {
         return this.valueName;
