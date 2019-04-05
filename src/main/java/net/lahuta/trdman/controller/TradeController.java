@@ -8,6 +8,7 @@ import net.lahuta.trdman.dto.TradeDto;
 import net.lahuta.trdman.service.TradeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @RequestMapping("/trdman")
@@ -19,8 +20,14 @@ public class TradeController {
     // http://localhost:8080/trdman/trade
     // dto: Trade -> TradeDto
     @GetMapping("/trade")
-    public List<TradeDto> trades() {
-        return tradeService.findAllTrades();
+//    public List<TradeDto> trades() {
+//        return tradeService.findAllTrades();
+//    }
+    public ModelAndView listTrades() {
+        ModelAndView modelAndView = new ModelAndView("list-trades");
+        List<TradeDto> trades = tradeService.findAllTrades();
+        modelAndView.addObject("trades", trades);
+        return modelAndView;
     }
 
     // http://localhost:8080/trdman/position

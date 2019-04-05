@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.lahuta.trdman.entity.Trade;
 import net.lahuta.trdman.entity.TradeEnum;
 import net.lahuta.trdman.exceptions.TradeParseException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
@@ -23,6 +24,9 @@ import java.util.EnumSet;
 @Slf4j
 @Service
 public class TradeParser extends DefaultHandler {
+
+    @Value("${trdman.verbose}")
+    private boolean verbose;
 
     private final XMLReader xmlReader;
 
@@ -47,6 +51,7 @@ public class TradeParser extends DefaultHandler {
         xmlReader = XMLReaderFactory.createXMLReader();
         xmlReader.setContentHandler(this);
         xmlReader.setErrorHandler(this);
+        log.info("verbose="+verbose);
     }
 
     public Trade parseXMLTrade(final String xml) throws TradeParseException {
@@ -68,7 +73,9 @@ public class TradeParser extends DefaultHandler {
         }
 
         if (!this.tradeValues.containsAll(TradeEnum.ALL_VALUES)) {
-            log.info("Missing values: {}", TradeEnum.ALL_VALUES.complementOf(this.tradeValues));
+            if (verbose) {
+                log.info("Missing values: {}", TradeEnum.ALL_VALUES.complementOf(this.tradeValues));
+            }
             throw new TradeParseException("Missing value(s)");
         }
 
@@ -81,12 +88,16 @@ public class TradeParser extends DefaultHandler {
 
     @Override
     public void startDocument() {
-        log.info("startDocument()");
+        if (verbose) {
+            log.info("startDocument()");
+        }
     }
 
     @Override
     public void endDocument() {
-        log.info("endDocument()");
+        if (verbose) {
+            log.info("endDocument()");
+        }
     }
 
     @Override
@@ -127,7 +138,7 @@ public class TradeParser extends DefaultHandler {
                         throw new TradeParseException("Invalid Qty value: '" + attrValue + "'");
                     }
                     tradeValues.add(TradeEnum.QUANTITY);
-                } else if(attrName.equals("PayableAmnt")) {
+                } else if(attrName.equals("Amnt")) {
                     try {
                         BigDecimal amnt = new BigDecimal(attrValue);
                         trade.setAmount(amnt);
@@ -135,7 +146,7 @@ public class TradeParser extends DefaultHandler {
                         throw new TradeParseException("Invalid PayableAmnt value: '" + attrValue + "'");
                     }
                     tradeValues.add(TradeEnum.AMOUNT);
-                } else if(attrName.equals("TrdPrc")) {
+                } else if(attrName.equals("Prc")) {
                     try {
                         BigDecimal price = new BigDecimal(attrValue);
                         trade.setPrice(price);
@@ -167,7 +178,9 @@ public class TradeParser extends DefaultHandler {
                     continue;
                 }
 
-                log.info("value: {}={}", attrName, attrValue);
+                if (this.verbose) {
+                    log.info("value: {}={}", attrName, attrValue);
+                }
 
             }
             return;
@@ -184,7 +197,9 @@ public class TradeParser extends DefaultHandler {
     @Override
     public void endElement(String uri, String localName, String qName) {
         level--;
-//        log.info("endElement({},{})", localName, qName);
+        if (verbose) {
+            log.info("endElement({},{})", localName, qName);
+        }
     }
 
     @Override

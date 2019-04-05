@@ -6,11 +6,15 @@ import net.lahuta.trdman.entity.Trade;
 import net.lahuta.trdman.exceptions.TradeParseException;
 import net.lahuta.trdman.repository.TradeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
 public class AmqpService {
+
+    @Value("${trdman.verbose}")
+    private boolean verbose;
 
     @Autowired
     private TradeParser tradeParser;
